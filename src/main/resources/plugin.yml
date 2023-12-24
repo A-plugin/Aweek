@@ -7,6 +7,17 @@ depend:
   - PlaceholderAPI
 commands:
   score:
-    description: sda
-  job:
-    description: dsadsadsa
+    description: scoreboard command
+    permission: Aweek.score
+    aliases:
+      - 스코어보드
+  joke:
+    description: Smile!
+    permission: Aweek.joke
+    usage: /joke [Something :) ]
+  aweek:
+    description: Aweek default command
+    permission: Aweek.aweek
+    aliases:
+      - Aw
+    usage: /aweek [] ...

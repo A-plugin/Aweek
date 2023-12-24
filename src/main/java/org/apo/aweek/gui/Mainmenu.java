@@ -33,25 +33,16 @@ public class Mainmenu implements Listener {
         InfoM.setOwningPlayer(p);
         InfoM.setDisplayName("정보 보기");
         Info.setItemMeta(InfoM);
-        i.setItem(0, BlankSlot);
-        i.setItem(1,BlankSlot);
-        i.setItem(2,BlankSlot);
-        i.setItem(3,BlankSlot);
-        i.setItem(4,BlankSlot);
-        i.setItem(5,BlankSlot);
-        i.setItem(7,BlankSlot);
-        i.setItem(8,BlankSlot);
-        i.setItem(6,BlankSlot);
-        i.setItem(9,BlankSlot);
-        i.setItem(17,BlankSlot);
+        int[] slotsToClear = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};
+        for (int slot : slotsToClear) {
+            i.setItem(slot, BlankSlot);
+        }
         i.setItem(10, Info);
         return i;
     }
     @EventHandler
     public void MenuClick(InventoryClickEvent e) {
         Player p= (Player) e.getWhoClicked();
-        Inventory in=e.getClickedInventory();
-
         if(e.getView().getTitle().equalsIgnoreCase("메뉴")) {
             if (e.isLeftClick()){
                 e.setCancelled(true);

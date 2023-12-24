@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 public class Job implements Listener {
     public Inventory JobInv(Player p) {
@@ -80,7 +80,7 @@ public class Job implements Listener {
                 ItemStack Sword=new ItemStack(Material.IRON_SWORD);
                 ItemMeta M1=Sword.getItemMeta();
                 M1.setDisplayName(ChatColor.DARK_GRAY+"전사의 검");
-                M1.setLore(Collections.singletonList("우클릭으로 대쉬를 사용할 수 있다. (쿨타임 15s)"));
+                M1.setLore(Arrays.asList("우클릭으로 대쉬를 사용할 수 있다.","쿨타임 15s"));
                 M1.setUnbreakable(true);
                 Sword.setItemMeta(M1);
                 p.getInventory().addItem(Sword);
@@ -89,7 +89,7 @@ public class Job implements Listener {
                 ItemStack Bow=new ItemStack(Material.BOW);
                 ItemMeta M2=Bow.getItemMeta();
                 M2.setDisplayName(ChatColor.DARK_GRAY+"궁수의 활");
-                M2.setLore(Collections.singletonList("좌클릭으로 화살을 더 빠르고 강력하게 쏠 수 있다. (쿨타임: 30s)"));
+                M2.setLore(Arrays.asList("좌클릭으로 화살을 더 빠르고 강력하게 쏠 수 있다.","쿨타임: 30s"));
                 M2.setUnbreakable(true);
                 Bow.setItemMeta(M2);
                 p.getInventory().addItem(Bow);
@@ -99,7 +99,7 @@ public class Job implements Listener {
                 ItemStack Sh=new ItemStack(Material.SHIELD);
                 ItemMeta M3= Sh.getItemMeta();
                 M3.setDisplayName(ChatColor.DARK_GRAY+"탱커의 방패");
-                M3.setLore(Collections.singletonList("받은 공격데미지를 5배로 튕겨냅니다. (쿨다임: 1m 30s)"));
+                M3.setLore(Arrays.asList("받은 공격데미지를 5배로 튕겨냅니다.","[왼손들기를 해야지 발동됩니다.] 쿨다임: 1m 30s"));
                 M3.setUnbreakable(true);
                 Sh.setItemMeta(M3);
                 p.getInventory().addItem(Sh);

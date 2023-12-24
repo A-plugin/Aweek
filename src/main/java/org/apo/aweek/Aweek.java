@@ -1,6 +1,9 @@
 package org.apo.aweek;
 
 import net.milkbowl.vault.economy.Economy;
+import org.apo.aweek.Commands.JokeC;
+import org.apo.aweek.Commands.aweekC;
+import org.apo.aweek.Commands.aweekTab;
 import org.apo.aweek.Commands.scoreboardC;
 import org.apo.aweek.gui.Job;
 import org.apo.aweek.gui.Mainmenu;
@@ -28,6 +31,11 @@ public final class Aweek extends JavaPlugin implements Listener {
                 getServer().getPluginManager().registerEvents(new scoreboard(), this);
                 getServer().getPluginManager().registerEvents(this, this);
                 getCommand("score").setExecutor(new scoreboardC());
+                getCommand("joke").setExecutor(new JokeC());
+                getCommand("aweek").setExecutor(new aweekC());
+                getCommand("aweek").setTabCompleter(new aweekTab());
+                getLogger().info("Aweek Server plugin");
+                getLogger().info("");
             } else {
                 // PlaceholderAPI가 없을 경우 콘솔에 메시지를 출력합니다.
                 getLogger().warning("PlaceholderAPI 또는 Vault 플러그인을  찾을 수 없습니다. 플러그인을 비활성화합니다.");

@@ -37,6 +37,7 @@ public class listener implements Listener {
                 scoreboard.RlS(p);
             }
         }
+        p.setPlayerListHeaderFooter("dsadsa", "dasda");
     }
 
     @EventHandler
@@ -100,7 +101,9 @@ public class listener implements Listener {
                         if (entity instanceof LivingEntity){
                             e.setCancelled(true);
                             ((LivingEntity) entity).damage(e.getDamage()*5);
-                            p.setCooldown(Material.SHIELD, 90 * 20);
+                            if (!p.getGameMode().equals(GameMode.CREATIVE)){
+                                p.setCooldown(Material.SHIELD, 90 * 20);
+                            }
                         }
                     }
                 }
