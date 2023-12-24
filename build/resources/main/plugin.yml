@@ -1,0 +1,12 @@
+name: Aweek
+version: '1.0-SNAPSHOT'
+main: org.apo.aweek.Aweek
+api-version: '1.20'
+author: APO2073
+depend:
+  - PlaceholderAPI
+commands:
+  score:
+    description: sda
+  job:
+    description: dsadsadsa
