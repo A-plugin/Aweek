@@ -125,7 +125,7 @@ public class Job implements Listener {
                 ItemStack As=new ItemStack(Material.NETHERITE_SWORD);
                 ItemMeta M4= As.getItemMeta();
                 M4.setDisplayName(ChatColor.DARK_GRAY+"암살자의 단검");
-                M4.setLore(Arrays.asList("모습을 숨김니다(5s)","쿨타임: 30s"));
+                M4.setLore(Arrays.asList("모습을 숨김니다(8s)","쿨타임: 30s"));
                 M4.setUnbreakable(true);
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),"assassin", 5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(),"ass", 5.0, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND));

@@ -3,10 +3,7 @@ package org.apo.aweek.listener;
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.apo.aweek.Aweek;
 import org.apo.aweek.gui.Job;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -20,6 +17,8 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class listener implements Listener {
     Job j=new Job();
@@ -37,6 +36,7 @@ public class listener implements Listener {
                 scoreboard.RlS(p);
             }
         }
+        config.set(p.getName()+".uuid", p.getUniqueId());
     }
 
     @EventHandler
@@ -51,6 +51,12 @@ public class listener implements Listener {
                     if (p.getCooldown(item.getType())==0){
                         p.setVelocity(p.getLocation().getDirection().multiply(1.5));
                         p.setCooldown(Material.IRON_SWORD, 15 * 20);
+                    }
+                }
+                if (displayName.equals(ChatColor.DARK_GRAY+"암살자의 단검")&& item.getType().equals(Material.NETHERITE_SWORD)) {
+                    if (p.getCooldown(item.getType())==0){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 8 * 20, 5 * 20), true);
+                        p.setCooldown(Material.NETHERITE_SWORD, 15 * 20 * 2);
                     }
                 }
             }
