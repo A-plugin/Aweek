@@ -3,7 +3,10 @@ package org.apo.aweek.listener;
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.apo.aweek.Aweek;
 import org.apo.aweek.gui.Job;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -36,9 +39,8 @@ public class listener implements Listener {
                 scoreboard.RlS(p);
             }
         }
-        config.set(p.getName()+".uuid", p.getUniqueId());
+        config.set(p.getName()+".uuid", p.getUniqueId().toString());
     }
-
     @EventHandler
     public void Event(PlayerInteractEvent e) {
         Player p=e.getPlayer();
