@@ -37,7 +37,6 @@ public class listener implements Listener {
                 scoreboard.RlS(p);
             }
         }
-        p.setPlayerListHeaderFooter("dsadsa", "dasda");
     }
 
     @EventHandler

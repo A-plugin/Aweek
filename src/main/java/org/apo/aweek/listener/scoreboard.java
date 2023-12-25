@@ -34,13 +34,6 @@ public class scoreboard implements Listener {
         aweek.saveConfig();
     }
 
-    public void DisS(Player p) {
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        p.setScoreboard(scoreboard);
-        config.set(p.getName()+".scoreb", false);
-        aweek.saveConfig();
-    }
-
     public void RlS(Player p) {
         new BukkitRunnable() {
             @Override

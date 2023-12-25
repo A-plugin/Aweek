@@ -4,16 +4,20 @@ import org.apo.aweek.Aweek;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Job implements Listener {
     public Inventory JobInv(Player p) {
@@ -30,10 +34,16 @@ public class Job implements Listener {
         ItemMeta T= Tank.getItemMeta();
         T.setDisplayName("탱커");
         Tank.setItemMeta(T);
+        ItemStack Ass=new ItemStack(Material.NETHERITE_SWORD);
+        ItemMeta A=Ass.getItemMeta();
+        A.setDisplayName("암살자");
+        A.setCustomModelData(4);
+        Ass.setItemMeta(A);
 
         i.setItem(0,Sword);
         i.setItem(1,Bow);
         i.setItem(2,Tank);
+        i.setItem(3, Ass);
         return i;
     }
     Aweek aweek=Aweek.Instance;
@@ -65,6 +75,12 @@ public class Job implements Listener {
                         aweek.saveConfig();
                         p.sendMessage(ChatColor.GREEN+"탱커를 선택하셨습니다.");
                         JobSetting(p,"tank");
+                        break;
+                    case 3:
+                        config.set(p.getName()+".job", "assassin");
+                        aweek.saveConfig();
+                        p.sendMessage(ChatColor.GREEN+"암살자를 선택하셨습니다.");
+                        JobSetting(p,"assassin");
                         break;
                     default:
                         p.sendMessage(ChatColor.RED + "존재하지 않는 직업입니다.");
@@ -105,6 +121,19 @@ public class Job implements Listener {
                 p.getInventory().addItem(Sh);
                 p.setMaxHealth(40);
                 break;
+            case "assassin":
+                ItemStack As=new ItemStack(Material.NETHERITE_SWORD);
+                ItemMeta M4= As.getItemMeta();
+                M4.setDisplayName(ChatColor.DARK_GRAY+"암살자의 단검");
+                M4.setLore(Arrays.asList("모습을 숨김니다(5s)","쿨타임: 30s"));
+                M4.setUnbreakable(true);
+                M4.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),"assassin", 5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+                M4.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(),"ass", 5.0, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND));
+                As.setItemMeta(M4);
+                p.getInventory().addItem(As);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + Job);
         }
     }
 }

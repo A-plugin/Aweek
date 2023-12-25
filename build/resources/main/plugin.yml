@@ -6,11 +6,6 @@ author: APO2073
 depend:
   - PlaceholderAPI
 commands:
-  score:
-    description: scoreboard command
-    permission: Aweek.score
-    aliases:
-      - 스코어보드
   joke:
     description: Smile!
     permission: Aweek.joke
