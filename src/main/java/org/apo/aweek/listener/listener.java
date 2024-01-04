@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,13 +16,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class listener implements Listener {
     Job j=new Job();
@@ -49,16 +55,20 @@ public class listener implements Listener {
         if (a.equals(Action.RIGHT_CLICK_AIR) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
             if (item != null && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
                 String displayName = item.getItemMeta().getDisplayName();
-                if (displayName.equals(ChatColor.DARK_GRAY + "전사의 검") && item.getType().equals(Material.IRON_SWORD)) {
-                    if (p.getCooldown(item.getType())==0){
+                if (p.getCooldown(item.getType())==0){
+                    if (displayName.equals(ChatColor.DARK_GRAY + "전사의 검") && item.getType().equals(Material.IRON_SWORD)) {
                         p.setVelocity(p.getLocation().getDirection().multiply(1.5));
-                        p.setCooldown(Material.IRON_SWORD, 15 * 20);
+                        p.setCooldown(p.getInventory().getItemInMainHand().getType(), 15 * 20);
+
                     }
-                }
-                if (displayName.equals(ChatColor.DARK_GRAY+"암살자의 단검")&& item.getType().equals(Material.NETHERITE_SWORD)) {
-                    if (p.getCooldown(item.getType())==0){
+                    if (displayName.equals(ChatColor.DARK_GRAY + "암살자의 단검") && item.getType().equals(Material.NETHERITE_SWORD)) {
                         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 8 * 20, 5 * 20), true);
-                        p.setCooldown(Material.NETHERITE_SWORD, 15 * 20 * 2);
+                        p.setCooldown(p.getInventory().getItemInMainHand().getType(), 15 * 20 * 2);
+                    }
+                    if (displayName.equals(ChatColor.LIGHT_PURPLE + "월요일의 가벼운 날개")) {
+                        p.setVelocity(p.getLocation().getDirection().multiply(1.7));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20 * 2, 3));
+                        p.setCooldown(p.getInventory().getItemInMainHand().getType(),20*20);
                     }
                 }
             }
@@ -90,6 +100,54 @@ public class listener implements Listener {
     }
 
     @EventHandler
+    public void en(EnchantItemEvent e) {
+        Player p=e.getEnchanter();
+        ItemStack itemStack=e.getItem();
+        if (itemStack.getType().equals(Material.DIAMOND_BOOTS) || itemStack.getType().equals(Material.NETHERITE_BOOTS)) {
+            if (e.getEnchantsToAdd().get(Enchantment.THORNS) == null) {
+                int ran = (int)(Math.random() * 100.0 % 10.0);
+                if (ran > 6) {
+                    ArrayList lore;
+                    ItemStack item;
+                    ItemMeta meta;
+                    lore = new ArrayList();
+                    lore.add("§c점프의 저주");
+                    item = e.getItem();
+                    meta = item.getItemMeta();
+                    meta.setLore(lore);
+                    item.setItemMeta(meta);
+                }
+            }
+        }
+        if (itemStack.getType().equals(Material.NETHERITE_SWORD)) {
+            int ran = (int)(Math.random() * 100.0 % 10.0);
+            if (ran==9) {
+                ArrayList lore;
+                ItemStack item;
+                ItemMeta meta;
+                lore = new ArrayList();
+                lore.add("§7폭발은 예술이다!");
+                item = e.getItem();
+                meta = item.getItemMeta();
+                meta.setLore(lore);
+                item.setItemMeta(meta);
+            }
+        }
+    }
+
+    @EventHandler
+    public void Jump(PlayerJumpEvent e) {
+        Player p=e.getPlayer();
+        if (p.getInventory().getBoots()!=null) {
+            if (p.getInventory().getBoots().getItemMeta().hasLore()) {
+                if (p.getInventory().getBoots().getItemMeta().getLore().contains("§c점프의 저주")) {
+                    p.setJumping(false);
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void Chat(PlayerChatEvent e) {
         Player p=e.getPlayer();
         e.setCancelled(true);
@@ -112,6 +170,20 @@ public class listener implements Listener {
                                 p.setCooldown(Material.SHIELD, 90 * 20);
                             }
                         }
+                    }
+                }
+            }
+        }
+        if (e.getDamager() instanceof Player) {
+            Player p=(Player) e.getDamager();
+            if (p.getInventory().getItemInMainHand().getItemMeta().hasLore()){
+                if (p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("§7폭발은 예술이다!")) {
+                    Random rand = new Random();
+                    int ran = rand.nextInt(100) + 1;
+                    if (ran == 44) {
+                        Bukkit.shutdown();
+                    } else if (ran <= 9) {
+                        p.getWorld().createExplosion(e.getEntity().getLocation(), 5);
                     }
                 }
             }

@@ -16,7 +16,7 @@ public class Mainmenu implements Listener {
     org.apo.aweek.gui.info info=new info();
     @EventHandler
     public void Open(PlayerSwapHandItemsEvent e) {
-        Player p=e.getPlayer();
+        Player p= e.getPlayer();
         if (p.isSneaking()) {
             e.setCancelled(true);
             p.openInventory(menuInv(p));
