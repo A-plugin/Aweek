@@ -34,6 +34,7 @@ public class listener implements Listener {
     Aweek aweek=Aweek.Instance;
     FileConfiguration config= aweek.getConfig();
     scoreboard scoreboard=new scoreboard();
+    Enchantable enchantable=new Enchantable();
     @EventHandler
     public void Join(PlayerJoinEvent e) {
         Player p=e.getPlayer();
@@ -49,10 +50,11 @@ public class listener implements Listener {
     }
     @EventHandler
     public void Event(PlayerInteractEvent e) {
+
         Player p=e.getPlayer();
         Action a=e.getAction();
         ItemStack item = p.getInventory().getItemInMainHand();
-        if (a.equals(Action.RIGHT_CLICK_AIR) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
+        if (a.equals(Action.RIGHT_CLICK_AIR)) {
             if (item != null && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
                 String displayName = item.getItemMeta().getDisplayName();
                 if (p.getCooldown(item.getType())==0){
@@ -71,8 +73,10 @@ public class listener implements Listener {
                         p.setCooldown(p.getInventory().getItemInMainHand().getType(),20*20);
                     }
                 }
+            } else if (true) {
+
             }
-        } else if (a.equals(Action.LEFT_CLICK_AIR) || a.equals(Action.LEFT_CLICK_BLOCK)) {
+        } else if (a.equals(Action.LEFT_CLICK_AIR)) {
             if (item!=null && item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
                 String displayName = item.getItemMeta().getDisplayName();
                 if (displayName.equalsIgnoreCase(ChatColor.DARK_GRAY + "궁수의 활") && item.getType().equals(Material.BOW)) {
@@ -103,7 +107,7 @@ public class listener implements Listener {
     public void en(EnchantItemEvent e) {
         Player p=e.getEnchanter();
         ItemStack itemStack=e.getItem();
-        if (itemStack.getType().equals(Material.DIAMOND_BOOTS) || itemStack.getType().equals(Material.NETHERITE_BOOTS)) {
+        if (enchantable.Boots(itemStack)) {
             if (e.getEnchantsToAdd().get(Enchantment.THORNS) == null) {
                 int ran = (int)(Math.random() * 100.0 % 10.0);
                 if (ran > 6) {
@@ -119,7 +123,7 @@ public class listener implements Listener {
                 }
             }
         }
-        if (itemStack.getType().equals(Material.NETHERITE_SWORD)) {
+        if (enchantable.sword(itemStack)) {
             int ran = (int)(Math.random() * 100.0 % 10.0);
             if (ran==9) {
                 ArrayList lore;
@@ -141,7 +145,7 @@ public class listener implements Listener {
         if (p.getInventory().getBoots()!=null) {
             if (p.getInventory().getBoots().getItemMeta().hasLore()) {
                 if (p.getInventory().getBoots().getItemMeta().getLore().contains("§c점프의 저주")) {
-                    p.setJumping(false);
+                    e.setCancelled(true);
                 }
             }
         }
@@ -201,5 +205,4 @@ public class listener implements Listener {
             }
         }
     }
-
 }

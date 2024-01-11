@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class Mainmenu implements Listener {
     org.apo.aweek.gui.info info=new info();
+    Artifact artifact=new Artifact();
     @EventHandler
     public void Open(PlayerSwapHandItemsEvent e) {
         Player p= e.getPlayer();
@@ -33,6 +34,8 @@ public class Mainmenu implements Listener {
         InfoM.setOwningPlayer(p);
         InfoM.setDisplayName("정보 보기");
         Info.setItemMeta(InfoM);
+        ItemStack Art=new ItemStack(Material.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE);
+        i.setItem(11,Art);
         int[] slotsToClear = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};
         for (int slot : slotsToClear) {
             i.setItem(slot, BlankSlot);
@@ -49,6 +52,9 @@ public class Mainmenu implements Listener {
                 if (e.getSlot() == 10) {
                     p.closeInventory();
                     info.Open(p);
+                } else if (e.getSlot()==11) {
+                    p.closeInventory();
+                    artifact.ArtOpen(p);
                 }
             } else {
                 e.setCancelled(true);

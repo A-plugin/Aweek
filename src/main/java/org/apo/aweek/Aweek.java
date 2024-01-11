@@ -5,6 +5,7 @@ import org.apo.aweek.Commands.JokeC;
 import org.apo.aweek.Commands.aweekC;
 import org.apo.aweek.Commands.aweekTab;
 import org.apo.aweek.boss.Mon;
+import org.apo.aweek.gui.Artifact;
 import org.apo.aweek.gui.Job;
 import org.apo.aweek.gui.Mainmenu;
 import org.apo.aweek.gui.info;
@@ -30,6 +31,7 @@ public final class Aweek extends JavaPlugin implements Listener {
                 getServer().getPluginManager().registerEvents(new Job(), this);
                 getServer().getPluginManager().registerEvents(new scoreboard(), this);
                 getServer().getPluginManager().registerEvents(this, this);
+                getServer().getPluginManager().registerEvents(new Artifact(), this);
 
                 getServer().getPluginManager().registerEvents(new Mon(), this);
 
