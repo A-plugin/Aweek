@@ -20,7 +20,7 @@ public class Artifact implements Listener {
         return inventory;
     }
 
-    public void ArtOpen(Player p) {
+    public void ArtOpen(Player p) { //아이템이 안불러와짐
         Inventory inventory = ArtInv(p);
         List<String> playerArt = aweek.getConfig().getStringList(p.getName() + "Art");
         if (!playerArt.isEmpty()){
