@@ -39,11 +39,17 @@ public class Job implements Listener {
         A.setDisplayName("암살자");
         A.setCustomModelData(4);
         Ass.setItemMeta(A);
+        ItemStack Mas=new ItemStack(Material.STICK);
+        ItemMeta Ms=Mas.getItemMeta();
+        Ms.setDisplayName("마법사");
+        Ms.setCustomModelData(1);
+        Mas.setItemMeta(Ms);
 
         i.setItem(0,Sword);
         i.setItem(1,Bow);
         i.setItem(2,Tank);
         i.setItem(3, Ass);
+        i.setItem(4,Mas);
         return i;
     }
     Aweek aweek=Aweek.Instance;
@@ -81,6 +87,12 @@ public class Job implements Listener {
                         aweek.saveConfig();
                         p.sendMessage(ChatColor.GREEN+"암살자를 선택하셨습니다.");
                         JobSetting(p,"assassin");
+                        break;
+                    case 4:
+                        config.set(p.getName()+".job", "wizard");
+                        aweek.saveConfig();
+                        p.sendMessage("마법사를 선택했습니다.");
+                        JobSetting(p,"wizard");
                         break;
                     default:
                         p.sendMessage(ChatColor.RED + "존재하지 않는 직업입니다.");
@@ -131,10 +143,15 @@ public class Job implements Listener {
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(),"ass", 5.0, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND));
                 As.setItemMeta(M4);
 
-                ItemStack Ar=new ItemStack(Material.ARROW);
-
+                ItemStack Ass=new ItemStack(Material.ARROW);
+                ItemMeta M4_1 = Ass.getItemMeta();
+                M4_1.setDisplayName(ChatColor.GRAY+"비수");
+                M4_1.setCustomModelData(1);
+                M4_1.setLore(Arrays.asList("4의 데미지를 입히는 비수?를 발사한다", "쿨타임: 10s"));
+                Ass.setItemMeta(M4_1);
 
                 p.getInventory().addItem(As);
+                p.getInventory().addItem(Ass);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + Job);

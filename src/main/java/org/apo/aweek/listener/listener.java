@@ -72,6 +72,10 @@ public class listener implements Listener {
                         p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20 * 2, 3));
                         p.setCooldown(p.getInventory().getItemInMainHand().getType(),20*20);
                     }
+                    if (displayName.equals(ChatColor.GRAY + "비수") && item.getType().equals(Material.ARROW)) {
+                        p.launchProjectile(Arrow.class).setDamage(4.0);
+                        p.setCooldown(p.getInventory().getItemInMainHand().getType(), 5 * 20);
+                    }
                 }
             } else if (true) {
 
