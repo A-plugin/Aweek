@@ -130,6 +130,10 @@ public class Job implements Listener {
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),"assassin", 5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(),"ass", 5.0, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND));
                 As.setItemMeta(M4);
+
+                ItemStack Ar=new ItemStack(Material.ARROW);
+
+
                 p.getInventory().addItem(As);
                 break;
             default:

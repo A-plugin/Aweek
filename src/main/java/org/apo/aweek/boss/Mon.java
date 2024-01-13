@@ -6,6 +6,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,6 +45,12 @@ public class Mon implements Listener {
                 public void run() {
                     if (!Phantom.isDead()) {
                         bossBar.setProgress((double) Phantom.getHealth() / Phantom.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+                        for (Entity entity : Phantom.getNearbyEntities(100, 100, 100)) {
+                            if (entity instanceof Player) {
+                                Phantom.setTarget((LivingEntity) entity);
+                            }
+                        }
+
                     } else {
                         bossBar.removeAll();
                     }
@@ -66,6 +74,7 @@ public class Mon implements Listener {
             e.getDrops().clear();
             ItemStack i=new ItemStack(Material.PHANTOM_MEMBRANE);
             ItemMeta itemMeta=i.getItemMeta();
+            itemMeta.setCustomModelData(1);
             itemMeta.setDisplayName(ChatColor.LIGHT_PURPLE +"월요일의 가벼운 날개");
             i.setItemMeta(itemMeta);
             e.getDrops().add(i);
