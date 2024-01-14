@@ -21,6 +21,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -47,6 +48,7 @@ public class listener implements Listener {
             }
         }
         config.set(p.getName()+".uuid", p.getUniqueId().toString());
+
     }
     @EventHandler
     public void Event(PlayerInteractEvent e) {
@@ -184,14 +186,18 @@ public class listener implements Listener {
         }
         if (e.getDamager() instanceof Player) {
             Player p=(Player) e.getDamager();
-            if (p.getInventory().getItemInMainHand().getItemMeta().hasLore()){
-                if (p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("§7폭발은 예술이다!")) {
-                    Random rand = new Random();
-                    int ran = rand.nextInt(100) + 1;
-                    if (ran == 44) {
-                        Bukkit.shutdown();
-                    } else if (ran <= 9) {
-                        p.getWorld().createExplosion(e.getEntity().getLocation(), 5);
+            if (p.getInventory().getItemInMainHand()!=null){
+                if (p.getInventory().getItemInMainHand().getItemMeta()!=null){
+                    if (p.getInventory().getItemInMainHand().getItemMeta().hasLore()) {
+                        if (p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("§7폭발은 예술이다!")) {
+                            Random rand = new Random();
+                            int ran = rand.nextInt(100) + 1;
+                            if (ran == 44) {
+                                Bukkit.shutdown();
+                            } else if (ran <= 9) {
+                                p.getWorld().createExplosion(e.getEntity().getLocation(), 5);
+                            }
+                        }
                     }
                 }
             }
@@ -208,5 +214,12 @@ public class listener implements Listener {
                 aweek.economy.withdrawPlayer(p,10.0);
             }
         }
+    }
+
+    @EventHandler
+    public void exit(PlayerQuitEvent e) {
+        Player p=e.getPlayer();
+        String money= String.valueOf(aweek.economy.getBalance(p));
+        aweek.getConfig().set(p.getName()+".money", money);
     }
 }

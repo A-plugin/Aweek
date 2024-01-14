@@ -1,6 +1,7 @@
 package org.apo.aweek.Commands;
 
 import org.apo.aweek.boss.Mon;
+import org.apo.aweek.gui.Artifact;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -29,8 +30,9 @@ public class aweekC implements CommandExecutor {
                     i.setItemMeta(itemMeta);
                     p.getInventory().addItem(i);
                 }
-                if (args[0].equals("r")) {
-
+                if (args[0].equals("A")) {
+                    Artifact artifact=new Artifact();
+                    artifact.art(p, Integer.parseInt(args[1]));
                 }
             }
             return true;

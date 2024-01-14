@@ -67,29 +67,34 @@ public class Job implements Listener {
                     case 0:
                         p.sendMessage(ChatColor.GREEN + "전사를 선택하셨습니다.");
                         config.set(p.getName()+".job","warrior");
+                        config.set(p.getName()+".MaxHp", 20);
                         aweek.saveConfig();
                         JobSetting(p, "warrior");
                         break;
                     case 1:
                         config.set(p.getName()+".job", "archer");
+                        config.set(p.getName()+".MaxHp", 10);
                         aweek.saveConfig();
                         p.sendMessage(ChatColor.GREEN + "궁수를 선택하셨습니다.");
                         JobSetting(p, "archer");
                         break;
                     case 2:
                         config.set(p.getName()+".job", "tank");
+                        config.set(p.getName()+".MaxHp", 40);
                         aweek.saveConfig();
                         p.sendMessage(ChatColor.GREEN+"탱커를 선택하셨습니다.");
                         JobSetting(p,"tank");
                         break;
                     case 3:
                         config.set(p.getName()+".job", "assassin");
+                        config.set(p.getName()+".MaxHp", 25);
                         aweek.saveConfig();
                         p.sendMessage(ChatColor.GREEN+"암살자를 선택하셨습니다.");
                         JobSetting(p,"assassin");
                         break;
                     case 4:
                         config.set(p.getName()+".job", "wizard");
+                        config.set(p.getName()+".MaxHp", 15);
                         aweek.saveConfig();
                         p.sendMessage("마법사를 선택했습니다.");
                         JobSetting(p,"wizard");
@@ -111,6 +116,7 @@ public class Job implements Listener {
                 M1.setLore(Arrays.asList("우클릭으로 대쉬를 사용할 수 있다.","쿨타임 15s"));
                 M1.setUnbreakable(true);
                 Sword.setItemMeta(M1);
+
                 p.getInventory().addItem(Sword);
                 break;
             case "archer":
@@ -137,6 +143,7 @@ public class Job implements Listener {
                 ItemStack As=new ItemStack(Material.NETHERITE_SWORD);
                 ItemMeta M4= As.getItemMeta();
                 M4.setDisplayName(ChatColor.DARK_GRAY+"암살자의 단검");
+                M4.setCustomModelData(1);
                 M4.setLore(Arrays.asList("모습을 숨김니다(8s)","쿨타임: 30s"));
                 M4.setUnbreakable(true);
                 M4.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),"assassin", 5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
@@ -152,6 +159,10 @@ public class Job implements Listener {
 
                 p.getInventory().addItem(As);
                 p.getInventory().addItem(Ass);
+                p.setMaxHealth(25);
+                break;
+            case "wizard":
+                p.setMaxHealth(15);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + Job);
