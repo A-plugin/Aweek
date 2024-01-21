@@ -1,16 +1,16 @@
 package org.apo.aweek;
 
 import net.milkbowl.vault.economy.Economy;
-import org.apo.aweek.Commands.JokeC;
-import org.apo.aweek.Commands.aweekC;
-import org.apo.aweek.Commands.aweekTab;
+import org.apo.aweek.Commands.*;
 import org.apo.aweek.boss.Mon;
-import org.apo.aweek.gui.Artifact;
 import org.apo.aweek.gui.Job;
 import org.apo.aweek.gui.Mainmenu;
 import org.apo.aweek.gui.info;
+import org.apo.aweek.listener.ListenerK;
 import org.apo.aweek.listener.listener;
 import org.apo.aweek.listener.scoreboard;
+import org.apo.aweek.system.Artifact;
+import org.apo.aweek.system.Guild;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -32,15 +32,19 @@ public final class Aweek extends JavaPlugin implements Listener {
                 getServer().getPluginManager().registerEvents(new scoreboard(), this);
                 getServer().getPluginManager().registerEvents(this, this);
                 getServer().getPluginManager().registerEvents(new Artifact(), this);
+                getServer().getPluginManager().registerEvents(new ListenerK(), this);
 
                 getServer().getPluginManager().registerEvents(new Mon(), this);
 
                 getCommand("joke").setExecutor(new JokeC());
                 getCommand("aweek").setExecutor(new aweekC());
                 getCommand("aweek").setTabCompleter(new aweekTab());
+                getCommand("guild").setExecutor(new GuildC());
+                getCommand("guild").setTabCompleter(new GuildTab());
 
-                getLogger().info("Aweek Server plugin");
-                getLogger().info("");
+                getLogger().info("Aweek Server");
+
+                guild();
             } else {
                 // PlaceholderAPI가 없을 경우 콘솔에 메시지를 출력합니다.
                 getLogger().warning("PlaceholderAPI 또는 Vault 플러그인을  찾을 수 없습니다. 플러그인을 비활성화합니다.");
@@ -49,6 +53,11 @@ public final class Aweek extends JavaPlugin implements Listener {
         } else {
             throw new IllegalStateException("Plugin already initialized!");
         }
+    }
+
+    public void guild() {
+        Guild guild=new Guild();
+        guild.guildLoading();
     }
 
     public Economy economy=null;
@@ -65,7 +74,6 @@ public final class Aweek extends JavaPlugin implements Listener {
         economy = rsp.getProvider();
         return economy != null;
     }
-
     @Override
     public void onDisable() {
         getLogger().info("플러그인이 비활설화됬습니다.");

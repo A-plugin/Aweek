@@ -1,4 +1,4 @@
-package org.apo.aweek.gui;
+package org.apo.aweek.system;
 
 import org.apo.aweek.Aweek;
 import org.bukkit.Bukkit;
@@ -32,7 +32,7 @@ public class Artifact implements Listener {
         File file = new File(aweek.getDataFolder() + "/Artifact", p.getUniqueId() + ".yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection section = config.getConfigurationSection("artifact");
-        Inventory inventory= Bukkit.createInventory(p,9,"楠");
+        Inventory inventory= Bukkit.createInventory(p,9,"아티팩트");
         if (section != null) {
             for (String slot : section.getKeys(false)) {
                 ItemStack itemStack = section.getItemStack(slot);
@@ -55,7 +55,7 @@ public class Artifact implements Listener {
 
     @EventHandler
     public void Click(InventoryClickEvent e) {
-        if (e.getView().getTitle().equals("楠")) {
+        if (e.getView().getTitle().equals("아티팩트")) {
             Player p= (Player) e.getWhoClicked();
             if (e.getCurrentItem()!=null) {
                 String n=e.getCurrentItem().getItemMeta().getDisplayName();
@@ -70,7 +70,7 @@ public class Artifact implements Listener {
 
     @EventHandler
     public void Close(InventoryCloseEvent e) {
-        if (e.getView().getTitle().equals("楠")) {
+        if (e.getView().getTitle().equals("아티팩트")) {
             Player p = (Player) e.getPlayer();
             File file = new File(aweek.getDataFolder() + "/Artifact", p.getUniqueId() + ".yml");
             FileConfiguration config = YamlConfiguration.loadConfiguration(file);
@@ -221,7 +221,7 @@ public class Artifact implements Listener {
 
 
     @EventHandler
-    public void ATC(EntityDamageByEntityEvent e) {
+    public void ATK(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof  Player) {
             if (ArtT((Player) e.getDamager()).contains("ATK")) {
                 if (ArtV((Player) e.getDamager(), "ATK") != 0) {

@@ -37,7 +37,7 @@ public class Job implements Listener {
         ItemStack Ass=new ItemStack(Material.NETHERITE_SWORD);
         ItemMeta A=Ass.getItemMeta();
         A.setDisplayName("암살자");
-        A.setCustomModelData(4);
+        A.setCustomModelData(1);
         Ass.setItemMeta(A);
         ItemStack Mas=new ItemStack(Material.STICK);
         ItemMeta Ms=Mas.getItemMeta();

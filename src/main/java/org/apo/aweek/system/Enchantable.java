@@ -1,4 +1,4 @@
-package org.apo.aweek.listener;
+package org.apo.aweek.system;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

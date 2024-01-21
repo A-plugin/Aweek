@@ -1,7 +1,8 @@
 package org.apo.aweek.Commands;
 
 import org.apo.aweek.boss.Mon;
-import org.apo.aweek.gui.Artifact;
+import org.apo.aweek.boss.TUE;
+import org.apo.aweek.system.Artifact;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -21,6 +22,10 @@ public class aweekC implements CommandExecutor {
                 if (args[0].equals("M")){
                     Mon mon = new Mon();
                     mon.spawnB(p);
+                }
+                if (args[0].equals("Tue")){
+                    TUE tue=new TUE();
+                    tue.spawnB(p);
                 }
                 if (args[0].equals("Mi")) {
                     ItemStack i=new ItemStack(Material.PHANTOM_MEMBRANE);

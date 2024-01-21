@@ -3,10 +3,9 @@ package org.apo.aweek.listener;
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.apo.aweek.Aweek;
 import org.apo.aweek.gui.Job;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.apo.aweek.system.Enchantable;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -18,14 +17,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -74,6 +71,10 @@ public class listener implements Listener {
                         p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20 * 2, 3));
                         p.setCooldown(p.getInventory().getItemInMainHand().getType(),20*20);
                     }
+                    if (displayName.equals(ChatColor.LIGHT_PURPLE + "잉거불창")) {
+                        p.setVelocity(p.getLocation().getDirection().multiply(1.7));
+                        p.setCooldown(p.getInventory().getItemInMainHand().getType(),25*20);
+                    }
                     if (displayName.equals(ChatColor.GRAY + "비수") && item.getType().equals(Material.ARROW)) {
                         p.launchProjectile(Arrow.class).setDamage(4.0);
                         p.setCooldown(p.getInventory().getItemInMainHand().getType(), 5 * 20);
@@ -107,6 +108,28 @@ public class listener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void blaz(PlayerMoveEvent e) {
+        if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+            Player p=e.getPlayer();
+            ItemStack itemStack=e.getPlayer().getInventory().getItemInMainHand();
+            if (p.getCooldown(itemStack.getType())!=0) {
+                Location location=p.getLocation();
+                Block blockUnderPlayer = p.getWorld().getBlockAt(location);
+                blockUnderPlayer.setType(Material.FIRE);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10, 10));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, 10));
+                    }
+                }.runTaskTimer(aweek,0L, 1L);
+            }
+
+        }
+
     }
 
     @EventHandler

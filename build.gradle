@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 group = 'org.APO'
@@ -25,13 +26,12 @@ dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT"
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
@@ -50,4 +50,7 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+kotlin {
+    jvmToolchain(17)
 }

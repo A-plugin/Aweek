@@ -13,6 +13,9 @@ commands:
   aweek:
     description: Aweek default command
     permission: Aweek.aweek
-    aliases:
-      - Aw
     usage: /aweek [] ...
+  guild:
+    permission: Aweek.guild
+    description: 길드 시슷템
+    usage: /guild create <길드 이름>
+           /guild join <길드 이름> <플레이어 닉네임>
