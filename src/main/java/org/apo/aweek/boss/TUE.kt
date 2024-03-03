@@ -59,7 +59,7 @@ class TUE: Listener {
             val i = ItemStack(Material.BLAZE_ROD)
             val itemMeta = i.itemMeta
             itemMeta.setCustomModelData(1)
-            itemMeta.setDisplayName(ChatColor.LIGHT_PURPLE.toString() + "잉거불창")
+            itemMeta.setDisplayName("${ChatColor.LIGHT_PURPLE}잉거불창")
             i.setItemMeta(itemMeta)
             e.drops.add(i)
         }

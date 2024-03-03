@@ -27,8 +27,9 @@ public class scoreboard implements Listener {
         o.getScore(ChatColor.LIGHT_PURPLE + "플레이어 " +ChatColor.WHITE+p.getName()).setScore(10);
         int H= (int) p.getHealth();
         o.getScore(ChatColor.GREEN + "HP: " + H).setScore(9);
-        o.getScore(ChatColor.GOLD+"직업: "+ChatColor.GRAY+config.get(p.getName()+".job")).setScore(8);
-        o.getScore(ChatColor.DARK_GREEN+"돈: "+ PlaceholderAPI.setPlaceholders(p,data.money)+"$").setScore(7);
+        o.getScore(ChatColor.DARK_AQUA+"Lv."+aweek.getConfig().getString(p.getName()+".Lv")).setScore(8);
+        o.getScore(ChatColor.GOLD+"직업: "+ChatColor.GRAY+config.get(p.getName()+".job")).setScore(7);
+        o.getScore(ChatColor.DARK_GREEN+"돈: "+ PlaceholderAPI.setPlaceholders(p,data.money)+"$").setScore(6);
         p.setScoreboard(scoreboard);
         config.set(p.getName()+".scoreb", true);
         aweek.saveConfig();

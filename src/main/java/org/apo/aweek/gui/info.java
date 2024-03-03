@@ -42,6 +42,11 @@ public class info implements Listener {
         J.setDisplayName(ChatColor.GOLD+"직업: §f"+config.get(p.getName()+".job"));
         Job.setItemMeta(J);
         i.setItem(20, Job);
+        ItemStack l=new ItemStack(Material.EXPERIENCE_BOTTLE);
+        ItemMeta lm=l.getItemMeta();
+        lm.setDisplayName(ChatColor.AQUA +"레벨: §f"+config.get(p.getName()+".Lv"));
+        l.setItemMeta(lm);
+        i.setItem(21, l);
         return i;
     }
 

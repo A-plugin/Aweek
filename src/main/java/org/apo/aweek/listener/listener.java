@@ -4,6 +4,8 @@ import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.apo.aweek.Aweek;
 import org.apo.aweek.gui.Job;
 import org.apo.aweek.system.Enchantable;
+import org.apo.aweek.system.Endurance;
+import org.apo.aweek.system.Status;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,11 +47,12 @@ public class listener implements Listener {
             }
         }
         config.set(p.getName()+".uuid", p.getUniqueId().toString());
+        Endurance endurance=new Endurance();
+        endurance.bar();
 
     }
     @EventHandler
     public void Event(PlayerInteractEvent e) {
-
         Player p=e.getPlayer();
         Action a=e.getAction();
         ItemStack item = p.getInventory().getItemInMainHand();
@@ -184,7 +187,13 @@ public class listener implements Listener {
     public void Chat(PlayerChatEvent e) {
         Player p=e.getPlayer();
         e.setCancelled(true);
-        Bukkit.broadcastMessage(ChatColor.GRAY+p.getName()+ChatColor.AQUA+" >> "+ChatColor.WHITE+e.getMessage());
+        if (!e.getMessage().contains("상태창!")){
+            Bukkit.broadcastMessage(ChatColor.GRAY + p.getName() + ChatColor.AQUA + " >> " + ChatColor.WHITE + e.getMessage());
+        } else {
+            Status status=new Status();
+            status.Player(p);
+            status.test();
+        }
     }
 
     @EventHandler
